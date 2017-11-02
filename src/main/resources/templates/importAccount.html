@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>导入账号</title>
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        function displayDate() {
+            var param = $("#accountJson").val();
+//            alert(param);
+            var re = new RegExp("&", "g");
+            var re2 = new RegExp("\n", "g");
+//            alert(param.replace(re,',').replace(re2,','));
+            if (param == null || param == undefined || param == '') {
+                alert("请输入账号信息！");
+                return;
+            }
+            htmlobj = $.ajax({
+//                13605088661----wykuokmm1&13820293836----jly009521
+//                url: "http://localhost:8090/account/importAccount?accountJson=13820293836----jly009521",
+                url: "http://localhost:8090/account/importAccount?accountJson=" + param.replace(re, ',').replace(re2, ','),
+                async: false
+            });
+            $('#divshow').show();
+            $('#divshow').html(htmlobj.responseText);
+        }
+    </script>
+</head>
+
+<body>
+<div>
+    <textarea id="accountJson" name="accountJson" cols=100 rows=20></textarea>
+</div>
+<button id="button" type="button" onclick="displayDate()">导入账号</button>
+<div id='divshow' style="display:none;">你是看不见我的</div>
+</body>
+
+</html>
